@@ -1,3 +1,10 @@
+" Download vim-plug
+if empty(glob(stdpath('data') . '/site/autoload/plug.vim'))
+  silent !curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs
+         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 set relativenumber " Show the line number relative to the line with the cursor
 
 set hidden " When off a buffer is unloaded when it is abandoned
