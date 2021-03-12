@@ -50,7 +50,6 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'scrooloose/nerdtree'                          " File explorer
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy file search
 Plug 'junegunn/fzf.vim'                             " Fuzzy file search
-Plug 'prettier/vim-prettier'                        " Prettier for VIM
 Plug 'tpope/vim-fugitive'                           " Git wrapper
 Plug 'vim-airline/vim-airline'                      " Pretty statusline
 Plug 'vim-scripts/gitignore'                        " Set wildignore from gitignore
@@ -59,9 +58,7 @@ Plug 'gruvbox-community/gruvbox'                    " Colorscheme
 Plug 'maxmellon/vim-jsx-pretty'                     " JSX & TSX syntax
 Plug 'andreshazard/vim-freemarker'                  " Syntax support for FTL
 Plug 'tpope/vim-surround'                           " Quoting/parenthesizing made simple
-" Plug 'ryanoasis/vim-devicons'                       " Show file icons
 Plug 'ap/vim-css-color'                             " CSS colors
-Plug 'jiangmiao/auto-pairs'                         " Auto close brackets
 Plug 'mattn/emmet-vim'                              " Emmet
 Plug 'arcticicestudio/nord-vim'                     " Colorscheme
 
@@ -97,12 +94,6 @@ let g:nord_cursor_line_number_background=1
 
 colorscheme nord
 
-" Prettier
-let g:prettier#autoformat_config_present=0
-let g:prettier#config#config_precedence='prefer-file'
-
-nnoremap <Leader>pp :Prettier<CR>
-
 " Airline
 let g:airline#extensions#tabline#enabled=0
 let g:airline_powerline_fonts=0
@@ -118,8 +109,7 @@ nnoremap <Leader>e :Buffers<CR>
 nmap <Leader>gd <Plug>(coc-definition)
 nmap <Leader>gr <Plug>(coc-references)
 nmap <Leader>rn <Plug>(coc-rename)
-nmap <Leader>ac  <Plug>(coc-codeaction)
-nmap <Leader>qf  <Plug>(coc-fix-current)
+nmap <Leader>ac <Plug>(coc-codeaction)
 nmap <Leader>o :CocCommand tsserver.organizeImports<CR>
 
 inoremap <silent><expr> <c-space> coc#refresh()
