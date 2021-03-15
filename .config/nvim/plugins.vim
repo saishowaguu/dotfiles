@@ -10,7 +10,6 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }   " Autocomplete
 Plug 'maxmellon/vim-jsx-pretty'                     " JSX & TSX syntax
 Plug 'andreshazard/vim-freemarker'                  " Syntax support for FTL
 Plug 'tpope/vim-surround'                           " Quoting/parenthesizing made simple
-Plug 'ap/vim-css-color'                             " CSS colors
 Plug 'mattn/emmet-vim'                              " Emmet
 Plug 'arcticicestudio/nord-vim'                     " Colorscheme
 
