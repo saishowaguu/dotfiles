@@ -12,5 +12,7 @@ Plug 'andreshazard/vim-freemarker'                  " Syntax support for FTL
 Plug 'tpope/vim-surround'                           " Quoting/parenthesizing made simple
 Plug 'mattn/emmet-vim'                              " Emmet
 Plug 'arcticicestudio/nord-vim'                     " Colorscheme
+Plug 'airblade/vim-gitgutter'                       " Shows a git diff in the sign column
+Plug 'ryanoasis/vim-devicons'                       " Devicons
 
 call plug#end()

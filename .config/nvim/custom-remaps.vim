@@ -18,3 +18,7 @@ nnoremap <C-l> <C-W>l
 
 " Hide whitespace
 nnoremap <Leader>hl :set list!<CR>
+
+" Quickfix list jump
+nnoremap <Leader>] :cnext<CR>
+nnoremap <Leader>[ :cprev<CR>
