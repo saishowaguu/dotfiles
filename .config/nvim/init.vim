@@ -45,6 +45,7 @@ Plug 'mattn/emmet-vim'                              " Emmet
 Plug 'arcticicestudio/nord-vim'                     " Colorscheme
 Plug 'airblade/vim-gitgutter'                       " Shows a git diff in the sign column
 Plug 'ryanoasis/vim-devicons'                       " Devicons
+Plug 'easymotion/vim-easymotion'                    " Code navigation made easy
 
 call plug#end()
 
