@@ -19,6 +19,7 @@ set list listchars=tab:→\ ,space:-,trail:~ " Display white characters
 set signcolumn=yes                         " Add one extra column for validation feedback
 set exrc                                   " Load project's local vimrc config
 set splitbelow splitright                  " Open new split below or right
+set inccommand=nosplit                     " Show substitution results as you type
 
 let mapleader=' '                          " Change leader key
 
@@ -36,7 +37,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy file search
 Plug 'junegunn/fzf.vim'                             " Fuzzy file search
 Plug 'tpope/vim-fugitive'                           " Git wrapper
 Plug 'vim-airline/vim-airline'                      " Pretty statusline
-Plug 'vim-scripts/gitignore'                        " Set wildignore from gitignore
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }   " Autocomplete
 Plug 'maxmellon/vim-jsx-pretty'                     " JSX & TSX syntax
 Plug 'andreshazard/vim-freemarker'                  " Syntax support for FTL
@@ -109,6 +109,8 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 " NERDTree
 let NERDTreeDirArrowExpandable="+"
 let NERDTreeDirArrowCollapsible="~"
+let NERDTreeMouseMode=2
+let NERDTreeNaturalSort=1
 
 nnoremap <Leader>pv :NERDTreeToggle<CR>
 nnoremap <Leader>pc :NERDTreeFind<CR>
