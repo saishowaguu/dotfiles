@@ -46,6 +46,8 @@ Plug 'arcticicestudio/nord-vim'                     " Colorscheme
 Plug 'airblade/vim-gitgutter'                       " Shows a git diff in the sign column
 Plug 'ryanoasis/vim-devicons'                       " Devicons
 Plug 'easymotion/vim-easymotion'                    " Code navigation made easy
+Plug 'jiangmiao/auto-pairs'                         " Auto close brackets
+Plug 'stsewd/fzf-checkout.vim'                      " Checkout branches with fzf
 
 call plug#end()
 
@@ -85,7 +87,7 @@ colorscheme nord
 
 " Airline
 let g:airline#extensions#tabline#enabled=0
-let g:airline_powerline_fonts=1
+let g:airline_powerline_fonts=0
 
 " fzf
 let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
