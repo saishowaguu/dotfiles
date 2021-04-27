@@ -111,7 +111,6 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 " NERDTree
 let NERDTreeDirArrowExpandable="+"
 let NERDTreeDirArrowCollapsible="~"
-let NERDTreeMouseMode=2
 let NERDTreeNaturalSort=1
 
 nnoremap <Leader>pv :NERDTreeToggle<CR>
