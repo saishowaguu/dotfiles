@@ -20,13 +20,13 @@ set signcolumn=yes                         " Add one extra column for validation
 set exrc                                   " Load project's local vimrc config
 set splitbelow splitright                  " Open new split below or right
 set inccommand=nosplit                     " Show substitution results as you type
+set colorcolumn=80                         " Show ruler at 80 char
 
 let mapleader=' '                          " Change leader key
 
 " Download vim-plug automatically
 if empty(glob(stdpath('data') . '/site/autoload/plug.vim'))
-  silent !curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs
-         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  silent !sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
@@ -57,11 +57,8 @@ nnoremap <Leader>` :split<CR>:resize 12<CR>:term<CR>i
 " Substitute selected text
 vnoremap * y:%s/\V<C-R>=escape(@",'/\:')<CR>//g<Left><Left>
 
-" Clear hlsearch
-nnoremap <Leader><Leader> :nohlsearch<CR>
-
 " Close all buffers
-nnoremap <Leader>bd :%bd<CR>
+nnoremap <Leader>bD :%bd<CR>
 
 " Smart move between panes
 nnoremap <C-j> <C-W>j
@@ -70,7 +67,7 @@ nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 
 " Hide whitespace
-nnoremap <Leader>hl :set list!<CR>
+nnoremap <Leader>sl :set list!<CR>
 
 " Quickfix list jump
 nnoremap <Leader>] :cnext<CR>
@@ -86,8 +83,8 @@ let g:nord_cursor_line_number_background=1
 colorscheme nord
 
 " Airline
-let g:airline#extensions#tabline#enabled=0
-let g:airline_powerline_fonts=0
+let g:airline#extensions#tabline#enabled=1
+let g:airline_powerline_fonts=1
 
 " fzf
 let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
