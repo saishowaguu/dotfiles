@@ -1,3 +1,12 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["javascript", "css", "html", "json"]
+  "http.proxyStrictSSL": false,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "css",
+    "html",
+    "json",
+    "typescriptreact",
+    "typescript",
+    "scss"
+  ]
 }

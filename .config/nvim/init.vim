@@ -48,6 +48,7 @@ Plug 'ryanoasis/vim-devicons'                       " Devicons
 Plug 'easymotion/vim-easymotion'                    " Code navigation made easy
 Plug 'jiangmiao/auto-pairs'                         " Auto close brackets
 Plug 'stsewd/fzf-checkout.vim'                      " Checkout branches with fzf
+Plug 'OmniSharp/omnisharp-vim'                      " Dotnet support
 
 call plug#end()
 
@@ -58,6 +59,7 @@ nnoremap <Leader>` :split<CR>:resize 12<CR>:term<CR>i
 vnoremap * y:%s/\V<C-R>=escape(@",'/\:')<CR>//g<Left><Left>
 
 " Close all buffers
+nnoremap <Leader>bd :bd<CR>
 nnoremap <Leader>bD :%bd<CR>
 
 " Smart move between panes
@@ -81,13 +83,15 @@ let g:nord_uniform_diff_background=1
 let g:nord_cursor_line_number_background=1
 
 colorscheme nord
+hi Normal guibg=NONE ctermbg=NONE
 
 " Airline
-let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#enabled=0
 let g:airline_powerline_fonts=1
 
 " fzf
 let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
+let g:fzf_preview_window = ['right:50%:hidden', 'ctrl-/']
 
 nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader>pf :Files<CR>
@@ -110,5 +114,15 @@ let NERDTreeDirArrowExpandable="+"
 let NERDTreeDirArrowCollapsible="~"
 let NERDTreeNaturalSort=1
 
+" Start NERDTree and put the cursor back in the other window.
+autocmd VimEnter * NERDTree | wincmd p
+
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+
+
 nnoremap <Leader>pv :NERDTreeToggle<CR>
 nnoremap <Leader>pc :NERDTreeFind<CR>
+
+nnoremap <Leader>l :term<CR>idotnet run<CR>
