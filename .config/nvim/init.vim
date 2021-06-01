@@ -49,6 +49,7 @@ Plug 'easymotion/vim-easymotion'                    " Code navigation made easy
 Plug 'jiangmiao/auto-pairs'                         " Auto close brackets
 Plug 'stsewd/fzf-checkout.vim'                      " Checkout branches with fzf
 Plug 'OmniSharp/omnisharp-vim'                      " Dotnet support
+Plug 'gruvbox-community/gruvbox'                    " Colorscheme
 
 call plug#end()
 
@@ -82,7 +83,7 @@ nnoremap <Leader>gs :tab G<CR>
 let g:nord_uniform_diff_background=1
 let g:nord_cursor_line_number_background=1
 
-colorscheme nord
+colorscheme gruvbox
 hi Normal guibg=NONE ctermbg=NONE
 
 " Airline
