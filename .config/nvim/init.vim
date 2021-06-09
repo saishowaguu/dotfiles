@@ -11,7 +11,7 @@ set incsearch                              " While typing a search command, show
 set noswapfile                             " Noswapfile modifier can be used to not create a swapfile for a new buffer
 set nobackup                               " Do not make a backup before overwriting a file
 set termguicolors                          " Enables 24-bit RGB color
-set scrolloff=4                            " Minimal number of screen lines to keep above and below the cursor
+set scrolloff=2                            " Minimal number of screen lines to keep above and below the cursor
 set shortmess+=c                           " This option helps to avoid all the hit-enter prompts caused by file messages
 set mouse=ni                               " Enables mouse support
 set cursorline                             " Highlight the screen line of the cursor with CursorLine
@@ -46,18 +46,18 @@ Plug 'arcticicestudio/nord-vim'                     " Colorscheme
 Plug 'airblade/vim-gitgutter'                       " Shows a git diff in the sign column
 Plug 'ryanoasis/vim-devicons'                       " Devicons
 Plug 'easymotion/vim-easymotion'                    " Code navigation made easy
-Plug 'jiangmiao/auto-pairs'                         " Auto close brackets
+" Plug 'jiangmiao/auto-pairs'                         " Auto close brackets
 Plug 'stsewd/fzf-checkout.vim'                      " Checkout branches with fzf
 Plug 'OmniSharp/omnisharp-vim'                      " Dotnet support
-Plug 'gruvbox-community/gruvbox'                    " Colorscheme
+" Plug 'gruvbox-community/gruvbox'                    " Colorscheme
 
 call plug#end()
 
 " Open terminal
-nnoremap <Leader>` :split<CR>:resize 12<CR>:term<CR>i
+nnoremap <Leader>` :split<CR>:resize 11<CR>:term<CR>i
 
 " Substitute selected text
-vnoremap * y:%s/\V<C-R>=escape(@",'/\:')<CR>//g<Left><Left>
+vnoremap <Leader>* y:%s/\V<C-R>=escape(@",'/\:')<CR>//g<Left><Left>
 
 " Close all buffers
 nnoremap <Leader>bd :bd<CR>
@@ -83,7 +83,7 @@ nnoremap <Leader>gs :tab G<CR>
 let g:nord_uniform_diff_background=1
 let g:nord_cursor_line_number_background=1
 
-colorscheme gruvbox
+colorscheme nord
 hi Normal guibg=NONE ctermbg=NONE
 
 " Airline
@@ -95,7 +95,7 @@ let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
 let g:fzf_preview_window = ['right:50%:hidden', 'ctrl-/']
 
 nnoremap <C-p> :GFiles<CR>
-nnoremap <Leader>pf :Files<CR>
+nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>e :Buffers<CR>
 
 " CoC
@@ -126,4 +126,4 @@ autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_
 nnoremap <Leader>pv :NERDTreeToggle<CR>
 nnoremap <Leader>pc :NERDTreeFind<CR>
 
-nnoremap <Leader>l :term<CR>idotnet run<CR>
+nnoremap <Leader>l :tabnew<CR>:term<CR>idotnet run<CR>
