@@ -20,7 +20,7 @@ Plug 'arcticicestudio/nord-vim'                     " Colorscheme
 Plug 'airblade/vim-gitgutter'                       " Shows a git diff in the sign column
 Plug 'ryanoasis/vim-devicons'                       " Devicons
 Plug 'easymotion/vim-easymotion'                    " Code navigation made easy
-" Plug 'jiangmiao/auto-pairs'                         " Auto close brackets
+Plug 'jiangmiao/auto-pairs'                         " Auto close brackets
 Plug 'stsewd/fzf-checkout.vim'                      " Checkout branches with fzf
 Plug 'OmniSharp/omnisharp-vim'                      " Dotnet support
 " Plug 'gruvbox-community/gruvbox'                    " Colorscheme

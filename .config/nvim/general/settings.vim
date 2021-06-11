@@ -30,6 +30,7 @@ set t_Co=256                               " Support 256 colors
 set updatetime=300                         " Faster completion
 set timeoutlen=500                         " By default it's 1000
 set formatoptions-=cro                     " Stop newline continution of comments
+set noshowmode                             " Do not display mode in command line
 
 au! BufWritePost $MYVIMRC source %         " Auto source when writing init.vim
 
