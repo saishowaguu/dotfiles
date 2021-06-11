@@ -25,7 +25,7 @@ nnoremap <Leader>[ :cprev<CR>
 nnoremap <Leader>gs :tab G<CR>
 
 " Open fzf with git files/all files/buffers
-nnoremap <Leader>p :GFiles<CR>
+nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>e :Buffers<CR>
 
