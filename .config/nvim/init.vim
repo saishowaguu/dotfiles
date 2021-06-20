@@ -53,24 +53,31 @@ endif
 
 call plug#begin(stdpath('data') . '/plugged')
 
-Plug 'scrooloose/nerdtree'                          " File explorer
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " Fuzzy file search
-Plug 'junegunn/fzf.vim'                             " Fuzzy file search
-Plug 'tpope/vim-fugitive'                           " Git wrapper
-Plug 'vim-airline/vim-airline'                      " Pretty statusline
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }   " Autocomplete
-Plug 'maxmellon/vim-jsx-pretty'                     " JSX & TSX syntax
-Plug 'andreshazard/vim-freemarker'                  " Syntax support for FTL
-Plug 'tpope/vim-surround'                           " Quoting/parenthesizing made simple
-Plug 'mattn/emmet-vim'                              " Emmet
-Plug 'arcticicestudio/nord-vim'                     " Colorscheme
-Plug 'airblade/vim-gitgutter'                       " Shows a git diff in the sign column
-Plug 'ryanoasis/vim-devicons'                       " Devicons
-Plug 'easymotion/vim-easymotion'                    " Code navigation made easy
-Plug 'jiangmiao/auto-pairs'                         " Auto close brackets
-Plug 'stsewd/fzf-checkout.vim'                      " Checkout branches with fzf
-Plug 'OmniSharp/omnisharp-vim'                      " Dotnet support
-Plug 'dense-analysis/ale'                           " Syntax checking for c#
+Plug 'scrooloose/nerdtree'                                      " File explorer
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }             " Fuzzy file search
+Plug 'junegunn/fzf.vim'                                         " Fuzzy file search
+Plug 'tpope/vim-fugitive'                                       " Git wrapper
+Plug 'vim-airline/vim-airline'                                  " Pretty statusline
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }               " Autocomplete
+Plug 'maxmellon/vim-jsx-pretty'                                 " JSX & TSX syntax
+Plug 'andreshazard/vim-freemarker'                              " Syntax support for FTL
+Plug 'tpope/vim-surround'                                       " Quoting/parenthesizing made simple
+Plug 'mattn/emmet-vim'                                          " Emmet
+Plug 'arcticicestudio/nord-vim'                                 " Colorscheme
+Plug 'airblade/vim-gitgutter'                                   " Shows a git diff in the sign column
+Plug 'ryanoasis/vim-devicons'                                   " Devicons
+Plug 'easymotion/vim-easymotion'                                " Code navigation made easy
+Plug 'jiangmiao/auto-pairs'                                     " Auto close brackets
+Plug 'stsewd/fzf-checkout.vim'                                  " Checkout branches with fzf
+Plug 'OmniSharp/omnisharp-vim'                                  " Dotnet support
+Plug 'dense-analysis/ale'                                       " Syntax checking for c#
+Plug 'neovim/nvim-lspconfig'                                    " Build-in LSP
+Plug 'nvim-lua/popup.nvim'                                      " Fuzzy file search
+Plug 'nvim-lua/plenary.nvim'                                    " Fuzzy file search
+Plug 'nvim-telescope/telescope.nvim'                            " Fuzzy file search
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }   " Code hightlighting
+Plug 'sainnhe/sonokai'                                          " treesitter compatible colorscheme
+Plug 'yamatsum/nvim-cursorline'                                 " Highlight same words
 
 call plug#end()
 
@@ -105,9 +112,9 @@ nnoremap <Leader>[ :cprev<CR>
 nnoremap <Leader>gs :tab G<CR>
 
 " Open fzf with git files/all files/buffers
-nnoremap <C-p> :GFiles<CR>
-nnoremap <Leader>f :Files<CR>
-nnoremap <Leader>e :Buffers<CR>
+nnoremap <C-p> <cmd>Telescope git_files<CR>
+nnoremap <Leader>f <cmd>Telescope find_files<CR>
+nnoremap <Leader>e <cmd>Telescope buffers<CR>
 
 " CoC
 nmap <Leader>gd <Plug>(coc-definition)
@@ -164,11 +171,14 @@ augroup omnisharp_commands
   " Navigate up and down by method/property/field
   autocmd FileType cs nmap <silent> <buffer> [[ <Plug>(omnisharp_navigate_up)
   autocmd FileType cs nmap <silent> <buffer> ]] <Plug>(omnisharp_navigate_down)
+
   " Find all code errors/warnings for the current solution and populate the quickfix window
   autocmd FileType cs nmap <silent> <buffer> <Leader>osgcc <Plug>(omnisharp_global_code_check)
+
   " Contextual code actions (uses fzf, vim-clap, CtrlP or unite.vim selector when available)
   autocmd FileType cs nmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
   autocmd FileType cs xmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
+
   " Repeat the last code action performed (does not use a selector)
   autocmd FileType cs nmap <silent> <buffer> <Leader>os. <Plug>(omnisharp_code_action_repeat)
   autocmd FileType cs xmap <silent> <buffer> <Leader>os. <Plug>(omnisharp_code_action_repeat)
@@ -217,7 +227,23 @@ autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_
 " Nord colorscheme
 " -----------------------------------------------------------------------------
 
-let g:nord_uniform_diff_background=1       " Transparent background when viewing diff
-let g:nord_cursor_line_number_background=1 " Add background color to active line number
+" let g:nord_uniform_diff_background=1       " Transparent background when viewing diff
+" let g:nord_cursor_line_number_background=1 " Add background color to active line number
 
-colorscheme nord
+let g:ariline_theme = 'sonokai'
+let g:sonokai_style = 'maia'
+let g:sonokai_enable_italic = 1
+let g:sonokai_disable_italic_comment = 1
+
+colorscheme sonokai
+
+" LSP config
+" -----------------------------------------------------------------------------
+lua << EOF
+require'lspconfig'.tsserver.setup {}
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true
+  }
+}
+EOF
