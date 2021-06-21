@@ -71,13 +71,12 @@ Plug 'jiangmiao/auto-pairs'                                     " Auto close bra
 Plug 'stsewd/fzf-checkout.vim'                                  " Checkout branches with fzf
 Plug 'OmniSharp/omnisharp-vim'                                  " Dotnet support
 Plug 'dense-analysis/ale'                                       " Syntax checking for c#
-Plug 'neovim/nvim-lspconfig'                                    " Build-in LSP
-Plug 'nvim-lua/popup.nvim'                                      " Fuzzy file search
-Plug 'nvim-lua/plenary.nvim'                                    " Fuzzy file search
-Plug 'nvim-telescope/telescope.nvim'                            " Fuzzy file search
-Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }   " Code hightlighting
+" Plug 'neovim/nvim-lspconfig'                                    " Build-in LSP
+" Plug 'nvim-lua/popup.nvim'                                      " Fuzzy file search
+" Plug 'nvim-lua/plenary.nvim'                                    " Fuzzy file search
+" Plug 'nvim-telescope/telescope.nvim'                            " Fuzzy file search
+" Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }   " Code hightlighting
 Plug 'sainnhe/sonokai'                                          " treesitter compatible colorscheme
-Plug 'yamatsum/nvim-cursorline'                                 " Highlight same words
 
 call plug#end()
 
@@ -112,9 +111,9 @@ nnoremap <Leader>[ :cprev<CR>
 nnoremap <Leader>gs :tab G<CR>
 
 " Open fzf with git files/all files/buffers
-nnoremap <C-p> <cmd>Telescope git_files<CR>
-nnoremap <Leader>f <cmd>Telescope find_files<CR>
-nnoremap <Leader>e <cmd>Telescope buffers<CR>
+nnoremap <C-p> :GFiles<CR>
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>e :Buffers<CR>
 
 " CoC
 nmap <Leader>gd <Plug>(coc-definition)
@@ -227,24 +226,24 @@ autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_
 " Nord colorscheme
 " -----------------------------------------------------------------------------
 
-" let g:nord_uniform_diff_background=1       " Transparent background when viewing diff
-" let g:nord_cursor_line_number_background=1 " Add background color to active line number
+let g:nord_uniform_diff_background=1       " Transparent background when viewing diff
+let g:nord_cursor_line_number_background=1 " Add background color to active line number
 
-let g:ariline_theme = 'sonokai'
-let g:sonokai_style = 'maia'
-let g:sonokai_enable_italic = 0
-let g:sonokai_disable_italic_comment = 1
+" let g:ariline_theme = 'sonokai'
+" let g:sonokai_style = 'maia'
+" let g:sonokai_enable_italic = 0
+" let g:sonokai_disable_italic_comment = 1
 
-colorscheme sonokai
+colorscheme nord
 
 " LSP config
 " -----------------------------------------------------------------------------
 
-lua << EOF
-require'lspconfig'.tsserver.setup {}
-require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true
-  }
-}
-EOF
+" lua << EOF
+" require'lspconfig'.tsserver.setup {}
+" require'nvim-treesitter.configs'.setup {
+"   highlight = {
+"     enable = true
+"   }
+" }
+" EOF
