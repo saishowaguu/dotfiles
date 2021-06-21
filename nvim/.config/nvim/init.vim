@@ -76,7 +76,8 @@ Plug 'dense-analysis/ale'                                       " Syntax checkin
 " Plug 'nvim-lua/plenary.nvim'                                    " Fuzzy file search
 " Plug 'nvim-telescope/telescope.nvim'                            " Fuzzy file search
 " Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }   " Code hightlighting
-Plug 'sainnhe/sonokai'                                          " treesitter compatible colorscheme
+" Plug 'sainnhe/sonokai'                                          " treesitter compatible colorscheme
+Plug 'vimwiki/vimwiki'                                          " Vim wiki
 
 call plug#end()
 
