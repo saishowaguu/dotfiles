@@ -86,7 +86,13 @@ call plug#end()
 " =============================================================================
 
 " Open terminal
-nnoremap <Leader>` :split<CR>:resize 11<CR>:term<CR>i
+nnoremap <Leader>` :split<CR>:resize 12<CR>:term tmux<CR>i
+
+" Easy change panes
+tnoremap <C-k> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-l> <C-\><C-n><C-w>l
 
 " Substitute selected text
 vnoremap <Leader>* y:%s/\V<C-R>=escape(@",'/\:')<CR>//g<Left><Left>
