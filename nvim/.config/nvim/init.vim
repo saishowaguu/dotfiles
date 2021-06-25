@@ -94,6 +94,9 @@ tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-h> <C-\><C-n><C-w>h
 tnoremap <C-l> <C-\><C-n><C-w>l
 
+" Auto insert terminal
+autocmd BufWinEnter,WinEnter term://* startinsert
+
 " Substitute selected text
 vnoremap <Leader>* y:%s/\V<C-R>=escape(@",'/\:')<CR>//g<Left><Left>
 
