@@ -60,7 +60,7 @@ Plug 'junegunn/fzf.vim'                                         " Fuzzy file sea
 Plug 'tpope/vim-fugitive'                                       " Git wrapper
 Plug 'vim-airline/vim-airline'                                  " Pretty statusline
 " Plug 'neoclide/coc.nvim', { 'branch': 'release' }               " Autocomplete
-" Plug 'maxmellon/vim-jsx-pretty'                                 " JSX & TSX syntax
+Plug 'maxmellon/vim-jsx-pretty'                                 " JSX & TSX syntax
 " Plug 'andreshazard/vim-freemarker'                              " Syntax support for FTL
 Plug 'tpope/vim-surround'                                       " Quoting/parenthesizing made simple
 Plug 'mattn/emmet-vim'                                          " Emmet
