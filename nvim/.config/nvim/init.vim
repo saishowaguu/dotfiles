@@ -309,6 +309,16 @@ local on_attach = function(client, bufnr)
   -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   -- buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
+  -- local function organize_imports()
+  --   local params = {
+  --     command = "_typescript.organizeImports",
+  --     arguments = { vim.api.nvim_buf_get_name(0) },
+  --     title = ""
+  --   }
+  --   vim.lsp.buf.execute_command(params)
+  -- end
+
+  buf_set_keymap('n', '<space>o', '<cmd>lua vim.lsp.buf.execute_command({ command = "_typescript.organizeImports", arguments = { vim.api.nvim_buf_get_name(0) }, title = "" })<CR>', opts)
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
