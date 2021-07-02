@@ -37,8 +37,6 @@ set formatoptions-=cro                     " Stop newline continution of comment
 set noshowmode                             " Do not display mode in command line
 set completeopt=menuone,noselect           " Required by compe
 
-au! BufWritePost $MYVIMRC source %         " Auto source when writing init.vim
-
 " Sudo write RO files
 cmap w!! w !sudo tee %
 
@@ -59,7 +57,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }             " Fuzzy file sea
 Plug 'junegunn/fzf.vim'                                         " Fuzzy file search
 Plug 'tpope/vim-fugitive'                                       " Git wrapper
 Plug 'vim-airline/vim-airline'                                  " Pretty statusline
-" Plug 'neoclide/coc.nvim', { 'branch': 'release' }               " Autocomplete
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }               " Autocomplete
 Plug 'maxmellon/vim-jsx-pretty'                                 " JSX & TSX syntax
 " Plug 'andreshazard/vim-freemarker'                              " Syntax support for FTL
 Plug 'tpope/vim-surround'                                       " Quoting/parenthesizing made simple
@@ -72,16 +70,16 @@ Plug 'jiangmiao/auto-pairs'                                     " Auto close bra
 Plug 'stsewd/fzf-checkout.vim'                                  " Checkout branches with fzf
 Plug 'OmniSharp/omnisharp-vim'                                  " Dotnet support
 Plug 'dense-analysis/ale'                                       " Syntax checking for c#
-Plug 'neovim/nvim-lspconfig'                                    " Build-in LSP
-Plug 'kabouzeid/nvim-lspinstall'                                " Auto install LSP
-Plug 'hrsh7th/nvim-compe'                                       " Autocomplete
+" Plug 'neovim/nvim-lspconfig'                                    " Build-in LSP
+" Plug 'kabouzeid/nvim-lspinstall'                                " Auto install LSP
+" Plug 'hrsh7th/nvim-compe'                                       " Autocomplete
 " Plug 'nvim-lua/popup.nvim'                                      " Fuzzy file search
 " Plug 'nvim-lua/plenary.nvim'                                    " Fuzzy file search
 " Plug 'nvim-telescope/telescope.nvim'                            " Fuzzy file search
 " Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }   " Code hightlighting
 " Plug 'sainnhe/sonokai'                                          " treesitter compatible colorscheme
 Plug 'vimwiki/vimwiki'                                          " Vim wiki
-Plug 'prettier/vim-prettier', { 'do': 'npm install' }           " Prettier
+" Plug 'prettier/vim-prettier', { 'do': 'npm install' }           " Prettier
 
 call plug#end()
 
@@ -90,7 +88,8 @@ call plug#end()
 " =============================================================================
 
 " Open terminal
-nnoremap <Leader>` :split<CR>:resize 12<CR>:term tmux<CR>i
+nnoremap <Leader>`h :split<CR>:resize 12<CR>:term<CR>
+nnoremap <Leader>`v :vsplit<CR>:term<CR>
 
 " Easy change panes
 tnoremap <C-k> <C-\><C-n><C-w>j
@@ -99,7 +98,7 @@ tnoremap <C-h> <C-\><C-n><C-w>h
 tnoremap <C-l> <C-\><C-n><C-w>l
 
 " Auto insert terminal
-autocmd BufWinEnter,WinEnter term://* startinsert
+" autocmd BufWinEnter,WinEnter term://* startinsert
 
 " Substitute selected text
 vnoremap <Leader>* y:%s/\V<C-R>=escape(@",'/\:')<CR>//g<Left><Left>
@@ -114,8 +113,8 @@ nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 
-" Hide whitespace
-nnoremap <Leader>sl :set list!<CR>
+" Toggle whitespace
+nnoremap <Leader>ws :set list!<CR>
 
 " Quickfix list jump
 nnoremap <Leader>] :cnext<CR>
@@ -130,26 +129,18 @@ nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>e :Buffers<CR>
 
 " CoC
-" nmap <Leader>gd <Plug>(coc-definition)
-" nmap <Leader>gr <Plug>(coc-references)
-" nmap <Leader>rn <Plug>(coc-rename)
-" nmap <Leader>ac <Plug>(coc-codeaction)
-" nmap <Leader>o :CocCommand tsserver.organizeImports<CR>
-
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+nmap <Leader>gd <Plug>(coc-definition)
+nmap <Leader>gr <Plug>(coc-references)
+nmap <Leader>rn <Plug>(coc-rename)
+nmap <Leader>ac <Plug>(coc-codeaction)
+nmap <Leader>o :CocCommand tsserver.organizeImports<CR>
 
 " Refresh popup window with c-space
-" inoremap <silent><expr> <C-Space> coc#refresh()
+inoremap <silent><expr> <C-Space> coc#refresh()
 
 " Auto select first option when pressing enter
-" inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm()
-"     \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm()
+    \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Toggle file explorer and select current file
 nnoremap <Leader>nt :NERDTreeToggle<CR>
@@ -222,7 +213,7 @@ augroup END
 " Airline
 " -----------------------------------------------------------------------------
 
-let g:airline#extensions#tabline#enabled=0 " Hide tabline
+let g:airline#extensions#tabline#enabled=1 " Show tabline
 let g:airline_powerline_fonts=1            " Enable powerline
 
 " fzf
@@ -261,9 +252,9 @@ colorscheme nord
 " Prettier
 " -----------------------------------------------------------------------------
 
-let g:prettier#autoformat_config_present = 1
-let g:prettier#autoformat_require_pragma = 0
-let g:prettier#config#config_precedence = 'prefer-file'
+" let g:prettier#autoformat_config_present = 1
+" let g:prettier#autoformat_require_pragma = 0
+" let g:prettier#config#config_precedence = 'prefer-file'
 
 " LSP config
 " -----------------------------------------------------------------------------
@@ -276,89 +267,89 @@ lua << EOF
 --   }
 -- }
 
-local nvim_lsp = require('lspconfig')
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  -- Enable completion triggered by <c-x><c-o>
-  -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  local opts = { noremap=true, silent=true }
-
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  -- buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  -- buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  -- buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-
-  -- local function organize_imports()
-  --   local params = {
-  --     command = "_typescript.organizeImports",
-  --     arguments = { vim.api.nvim_buf_get_name(0) },
-  --     title = ""
-  --   }
-  --   vim.lsp.buf.execute_command(params)
-  -- end
-
-  buf_set_keymap('n', '<space>o', '<cmd>lua vim.lsp.buf.execute_command({ command = "_typescript.organizeImports", arguments = { vim.api.nvim_buf_get_name(0) }, title = "" })<CR>', opts)
-end
-
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
--- local servers = { "pyright", "rust_analyzer", "tsserver" }
--- for _, lsp in ipairs(servers) do
---   nvim_lsp[lsp].setup { on_attach = on_attach }
+-- local nvim_lsp = require('lspconfig')
+-- 
+-- -- Use an on_attach function to only map the following keys
+-- -- after the language server attaches to the current buffer
+-- local on_attach = function(client, bufnr)
+--   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+--   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+-- 
+--   -- Enable completion triggered by <c-x><c-o>
+--   -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+-- 
+--   -- Mappings.
+--   local opts = { noremap=true, silent=true }
+-- 
+--   -- See `:help vim.lsp.*` for documentation on any of the below functions
+--   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+--   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+--   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+--   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+--   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+--   -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+--   -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+--   -- buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+--   buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+--   buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+--   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+--   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+--   -- buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+--   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+--   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+--   -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+--   -- buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+-- 
+--   -- local function organize_imports()
+--   --   local params = {
+--   --     command = "_typescript.organizeImports",
+--   --     arguments = { vim.api.nvim_buf_get_name(0) },
+--   --     title = ""
+--   --   }
+--   --   vim.lsp.buf.execute_command(params)
+--   -- end
+-- 
+--   buf_set_keymap('n', '<space>o', '<cmd>lua vim.lsp.buf.execute_command({ command = "_typescript.organizeImports", arguments = { vim.api.nvim_buf_get_name(0) }, title = "" })<CR>', opts)
 -- end
-
-require'lspinstall'.setup() -- important
-
-local servers = require'lspinstall'.installed_servers()
-for _, server in pairs(servers) do
-  require'lspconfig'[server].setup{ on_attach = on_attach }
-end
-
-require'compe'.setup {
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  resolve_timeout = 800;
-  incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
-  documentation = true;
-
-  source = {
-    path = true;
-    buffer = true;
-    calc = false;
-    nvim_lsp = true;
-    nvim_lua = true;
-    vsnip = false;
-    ultisnips = false;
-  };
-}
+-- 
+-- -- Use a loop to conveniently call 'setup' on multiple servers and
+-- -- map buffer local keybindings when the language server attaches
+-- -- local servers = { "pyright", "rust_analyzer", "tsserver" }
+-- -- for _, lsp in ipairs(servers) do
+-- --   nvim_lsp[lsp].setup { on_attach = on_attach }
+-- -- end
+-- 
+-- require'lspinstall'.setup() -- important
+-- 
+-- local servers = require'lspinstall'.installed_servers()
+-- for _, server in pairs(servers) do
+--   require'lspconfig'[server].setup{ on_attach = on_attach }
+-- end
+-- 
+-- require'compe'.setup {
+--   enabled = true;
+--   autocomplete = true;
+--   debug = false;
+--   min_length = 1;
+--   preselect = 'enable';
+--   throttle_time = 80;
+--   source_timeout = 200;
+--   resolve_timeout = 800;
+--   incomplete_delay = 400;
+--   max_abbr_width = 100;
+--   max_kind_width = 100;
+--   max_menu_width = 100;
+--   documentation = true;
+-- 
+--   source = {
+--     path = true;
+--     buffer = true;
+--     calc = false;
+--     nvim_lsp = true;
+--     nvim_lua = true;
+--     vsnip = false;
+--     ultisnips = false;
+--   };
+-- }
 
 EOF
