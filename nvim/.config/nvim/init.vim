@@ -80,6 +80,7 @@ Plug 'dense-analysis/ale'                                       " Syntax checkin
 " Plug 'sainnhe/sonokai'                                          " treesitter compatible colorscheme
 Plug 'vimwiki/vimwiki'                                          " Vim wiki
 " Plug 'prettier/vim-prettier', { 'do': 'npm install' }           " Prettier
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'                  " Coloured devicons
 
 call plug#end()
 
@@ -158,6 +159,12 @@ nnoremap <M-l> :vertical resize +2<CR>
 " Better tabbing
 vnoremap < <gv
 vnoremap > >gv
+
+" Better ^ and $ keys
+nnoremap H ^
+nnoremap L $
+vnoremap H ^
+vnoremap L $
 
 augroup omnisharp_commands
   autocmd!
