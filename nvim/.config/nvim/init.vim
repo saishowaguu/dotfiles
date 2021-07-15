@@ -37,8 +37,6 @@ set formatoptions-=cro                     " Stop newline continution of comment
 set noshowmode                             " Do not display mode in command line
 set completeopt=menuone,noselect           " Required by compe
 
-au! BufWritePost $MYVIMRC source %         " Auto source when writing init.vim
-
 " Sudo write RO files
 cmap w!! w !sudo tee %
 
@@ -82,6 +80,7 @@ Plug 'hrsh7th/nvim-compe'                                       " Autocomplete
 " Plug 'sainnhe/sonokai'                                          " treesitter compatible colorscheme
 Plug 'vimwiki/vimwiki'                                          " Vim wiki
 Plug 'prettier/vim-prettier', { 'do': 'npm install' }           " Prettier
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'                  " Coloured devicons
 
 call plug#end()
 
@@ -90,7 +89,8 @@ call plug#end()
 " =============================================================================
 
 " Open terminal
-nnoremap <Leader>` :split<CR>:resize 12<CR>:term tmux<CR>i
+nnoremap <Leader>`h :split<CR>:resize 12<CR>:term<CR>
+nnoremap <Leader>`v :vsplit<CR>:term<CR>
 
 " Easy change panes
 tnoremap <C-k> <C-\><C-n><C-w>j
@@ -114,8 +114,8 @@ nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 
-" Hide whitespace
-nnoremap <Leader>sl :set list!<CR>
+" Toggle whitespace
+nnoremap <Leader>ws :set list!<CR>
 
 " Quickfix list jump
 nnoremap <Leader>] :cnext<CR>
@@ -167,6 +167,12 @@ nnoremap <M-l> :vertical resize +2<CR>
 " Better tabbing
 vnoremap < <gv
 vnoremap > >gv
+
+" Better ^ and $ keys
+nnoremap H ^
+nnoremap L $
+vnoremap H ^
+vnoremap L $
 
 augroup omnisharp_commands
   autocmd!
@@ -222,7 +228,7 @@ augroup END
 " Airline
 " -----------------------------------------------------------------------------
 
-let g:airline#extensions#tabline#enabled=0 " Hide tabline
+let g:airline#extensions#tabline#enabled=1 " Show tabline
 let g:airline_powerline_fonts=1            " Enable powerline
 
 " fzf
