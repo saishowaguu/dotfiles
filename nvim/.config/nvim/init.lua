@@ -12,7 +12,7 @@ local opt = vim.opt
 local path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 
 if fn.empty(fn.glob(path)) > 0 then
-  fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', path})
+  fn.system({ 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', path })
   execute 'packadd packer.nvim'
 end
 
@@ -23,17 +23,20 @@ end
 global.mapleader = ' ' -- Set leader key to space
 
 opt.clipboard = 'unnamedplus' -- Use system clipboard
-opt.completeopt = {'menuone', 'noselect'}
+opt.completeopt = { 'menuone', 'noselect' }
 opt.expandtab = true -- Use spaces instead of tabs
 opt.hlsearch = false -- Do not highlight all search results
+opt.ignorecase = true -- Case insensitive search
 opt.list = true -- Show white characters
-opt.listchars = {tab = ' ', trail = '~'} -- Configure white characters
+opt.listchars = { tab = ' ', trail = '~' } -- Configure white characters
 opt.mouse = 'a' -- Add mouse support
 opt.number = true -- Show line numbers
 opt.relativenumber = true -- Show line numbers relative to current line
 opt.shiftwidth = 2 -- Size of spaces to inser per tab
 opt.signcolumn = 'yes' -- Show sign column
+opt.smartcase = true
 opt.tabstop = 2 -- Tab size
+opt.termguicolors = true
 
 --
 -- Plugins
@@ -43,6 +46,11 @@ require('packer').startup(function()
   use 'sainnhe/edge'
 
   use 'tpope/vim-fugitive'
+  use 'airblade/vim-gitgutter'
+
+  use 'tpope/vim-surround'
+
+  use 'jiangmiao/auto-pairs'
 
   use 'neovim/nvim-lspconfig'
   use 'kabouzeid/nvim-lspinstall'
@@ -52,16 +60,25 @@ require('packer').startup(function()
 
   use 'mhartington/formatter.nvim'
 
-  use 'phaazon/hop.nvim'
+  use {
+    'phaazon/hop.nvim',
+    as = 'hop',
+    require('hop').setup { keys = 'etovxqpdygfblzhckisuran' }
+  }
 
   use {
     'hoob3rt/lualine.nvim',
-    requires = {'kyazdani42/nvim-web-devicons', opt = true}
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
+
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
 
   use {
     'nvim-telescope/telescope.nvim',
-    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+    requires = {{ 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' }}
   }
 end)
 
@@ -187,14 +204,14 @@ _G.s_tab_complete = function()
   end
 end
 
-map('i', '<c-space>', 'compe#complete()', {expr = true})
-map('i', '<cr>', 'compe#confirm({ "keys": "<cr>", "select": v:true })', {expr = true})
-map('i', '<c-e>', 'compe#close("<c-e>")', {expr = true})
+map('i', '<c-space>', 'compe#complete()', { expr = true })
+map('i', '<cr>', 'compe#confirm({ "keys": "<cr>", "select": v:true })', { expr = true })
+map('i', '<c-e>', 'compe#close("<c-e>")', { expr = true })
 
-map("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-map("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-map("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-map("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+map("i", "<Tab>", "v:lua.tab_complete()", { expr = true })
+map("s", "<Tab>", "v:lua.tab_complete()", { expr = true })
+map("i", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
+map("s", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
 
 --
 -- Treesitter
@@ -217,7 +234,7 @@ require('formatter').setup({
       function()
         return {
           exe = 'prettier',
-          args = {'--stdin-filepath', vim.api.nvim_buf_get_name(0)},
+          args = { '--stdin-filepath', vim.api.nvim_buf_get_name(0) },
           stdin = true
         }
       end
@@ -226,8 +243,20 @@ require('formatter').setup({
 })
 
 vim.api.nvim_exec([[
-augroup FormatAutogroup
-  autocmd!
-  autocmd BufWritePost *.js FormatWrite
-augroup END
+  augroup FormatAutogroup
+    autocmd!
+    autocmd BufWritePost *.js FormatWrite
+  augroup END
 ]], true)
+
+--
+-- Hop
+--
+
+map('n', '<leader>h', ':HopWord<cr>', {})
+
+--
+-- NvimTree
+--
+
+map('n', '<c-n>', ':NvimTreeToggle<cr>', {})
