@@ -122,7 +122,7 @@ map('n', '<leader>g', ':tab G<cr>', {})
 --
 
 map('n', '<c-p>', ':Telescope git_files<cr>', {})
-map('n', '<leader>e', ':Telescope oldfiles<cr>', {})
+map('n', '<leader>e', ':Telescope buffers<cr>', {})
 map('n', '<leader>f', ':Telescope find_files<cr>', {})
 
 --
