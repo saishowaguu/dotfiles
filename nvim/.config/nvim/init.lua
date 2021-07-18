@@ -122,6 +122,8 @@ map('n', '<leader>g', ':tab G<cr>', {})
 --
 
 map('n', '<c-p>', ':Telescope git_files<cr>', {})
+map('n', '<leader>e', ':Telescope oldfiles<cr>', {})
+map('n', '<leader>f', ':Telescope find_files<cr>', {})
 
 --
 -- Statusline
@@ -238,6 +240,26 @@ require('formatter').setup({
           stdin = true
         }
       end
+    },
+    c = {
+      function()
+        return {
+          exe = 'clang-format',
+          args = {},
+          stdin = true,
+          cwd = fn.expand('%:p:h')
+        }
+      end
+    },
+    cpp = {
+      function()
+        return {
+          exe = 'clang-format',
+          args = {},
+          stdin = true,
+          cwd = fn.expand('%:p:h')
+        }
+      end
     }
   }
 })
@@ -245,7 +267,7 @@ require('formatter').setup({
 vim.api.nvim_exec([[
   augroup FormatAutogroup
     autocmd!
-    autocmd BufWritePost *.js FormatWrite
+    autocmd BufWritePost *.js,*.ts,*.json,*.css,*.html,*.cpp,*.c,*.h FormatWrite
   augroup END
 ]], true)
 
@@ -260,3 +282,4 @@ map('n', '<leader>h', ':HopWord<cr>', {})
 --
 
 map('n', '<c-n>', ':NvimTreeToggle<cr>', {})
+map('n', '<leader>n', ':NvimTreeFindFile<cr>', {})
