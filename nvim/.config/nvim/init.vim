@@ -256,6 +256,8 @@ let g:nord_cursor_line_number_background=1 " Add background color to active line
 
 colorscheme nord
 
+hi Normal guibg=NONE ctermbg=NONE
+
 " Prettier
 " -----------------------------------------------------------------------------
 
