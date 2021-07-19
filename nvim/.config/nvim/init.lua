@@ -63,7 +63,9 @@ require('packer').startup(function()
   use {
     'phaazon/hop.nvim',
     as = 'hop',
-    require('hop').setup { keys = 'etovxqpdygfblzhckisuran' }
+    config = function()
+      require('hop').setup { keys = 'etovxqpdygfblzhckisuran' }
+    end
   }
 
   use {
