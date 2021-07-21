@@ -20,22 +20,16 @@ set noswapfile                             " Noswapfile modifier can be used to 
 set nobackup                               " Do not make a backup before overwriting a file
 set termguicolors                          " Enables 24-bit RGB color
 set scrolloff=2                            " Minimal number of screen lines to keep above and below the cursor
-set shortmess+=c                           " This option helps to avoid all the hit-enter prompts caused by file messages
 set mouse=a                                " Enables mouse support
 set cursorline                             " Highlight the screen line of the cursor with CursorLine
-set list listchars=tab:→\ ,space:-,trail:~ " Display white characters
+set list listchars=tab:→\ ,trail:~ " Display white characters
 set signcolumn=yes                         " Add one extra column for validation feedback
-set exrc                                   " Load project's local vimrc config
 set splitbelow                             " Horizontal splits will automatically be below
 set splitright                             " Vertical splits will automatically be to the right
 set inccommand=nosplit                     " Show substitution results as you type
-set colorcolumn=80                         " Show ruler at 80 char
-set t_Co=256                               " Support 256 colors
-set updatetime=300                         " Faster completion
-set timeoutlen=500                         " By default it's 1000
-set formatoptions-=cro                     " Stop newline continution of comments
-set noshowmode                             " Do not display mode in command line
 set completeopt=menuone,noselect           " Required by compe
+set clipboard=unnamedplus                  " Use system clipboard
+set nohlsearch                             " Do not hightlight search occurrences
 
 " Sudo write RO files
 cmap w!! w !sudo tee %
@@ -52,54 +46,35 @@ endif
 
 call plug#begin(stdpath('data') . '/plugged')
 
-Plug 'scrooloose/nerdtree'                                      " File explorer
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }             " Fuzzy file search
 Plug 'junegunn/fzf.vim'                                         " Fuzzy file search
 Plug 'tpope/vim-fugitive'                                       " Git wrapper
-Plug 'vim-airline/vim-airline'                                  " Pretty statusline
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }               " Autocomplete
 Plug 'maxmellon/vim-jsx-pretty'                                 " JSX & TSX syntax
 " Plug 'andreshazard/vim-freemarker'                              " Syntax support for FTL
 Plug 'tpope/vim-surround'                                       " Quoting/parenthesizing made simple
 Plug 'mattn/emmet-vim'                                          " Emmet
-Plug 'arcticicestudio/nord-vim'                                 " Colorscheme
+Plug 'sainnhe/edge'                                             " Colorscheme
 Plug 'airblade/vim-gitgutter'                                   " Shows a git diff in the sign column
-Plug 'ryanoasis/vim-devicons'                                   " Devicons
-Plug 'easymotion/vim-easymotion'                                " Code navigation made easy
 Plug 'jiangmiao/auto-pairs'                                     " Auto close brackets
 Plug 'stsewd/fzf-checkout.vim'                                  " Checkout branches with fzf
 Plug 'OmniSharp/omnisharp-vim'                                  " Dotnet support
 Plug 'dense-analysis/ale'                                       " Syntax checking for c#
-" Plug 'neovim/nvim-lspconfig'                                    " Build-in LSP
-" Plug 'kabouzeid/nvim-lspinstall'                                " Auto install LSP
-" Plug 'hrsh7th/nvim-compe'                                       " Autocomplete
-" Plug 'nvim-lua/popup.nvim'                                      " Fuzzy file search
-" Plug 'nvim-lua/plenary.nvim'                                    " Fuzzy file search
-" Plug 'nvim-telescope/telescope.nvim'                            " Fuzzy file search
-" Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }   " Code hightlighting
-" Plug 'sainnhe/sonokai'                                          " treesitter compatible colorscheme
 Plug 'vimwiki/vimwiki'                                          " Vim wiki
-" Plug 'prettier/vim-prettier', { 'do': 'npm install' }           " Prettier
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'                  " Coloured devicons
+Plug 'kyazdani42/nvim-web-devicons'                             " Devicons for nvimtree
+Plug 'kyazdani42/nvim-tree.lua'                                 " Project explorer
+Plug 'hoob3rt/lualine.nvim'                                     " Statusline
+Plug 'phaazon/hop.nvim'                                         " Easy motion
 
 call plug#end()
 
-" =============================================================================
-" KEYMAPS
-" =============================================================================
-
 " Open terminal
-nnoremap <Leader>`h :split<CR>:resize 12<CR>:term<CR>
-nnoremap <Leader>`v :vsplit<CR>:term<CR>
+nnoremap <Leader>t :split<CR>:resize 12<CR>:term<CR>
 
 " Easy change panes
-tnoremap <C-k> <C-\><C-n><C-w>j
+tnoremap <C-j> <C-\><C-n><C-w>j
 tnoremap <C-k> <C-\><C-n><C-w>k
-tnoremap <C-h> <C-\><C-n><C-w>h
-tnoremap <C-l> <C-\><C-n><C-w>l
-
-" Auto insert terminal
-" autocmd BufWinEnter,WinEnter term://* startinsert
 
 " Substitute selected text
 vnoremap <Leader>* y:%s/\V<C-R>=escape(@",'/\:')<CR>//g<Left><Left>
@@ -115,14 +90,14 @@ nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 
 " Toggle whitespace
-nnoremap <Leader>ws :set list!<CR>
+nnoremap <Leader>l :set list!<CR>
 
 " Quickfix list jump
 nnoremap <Leader>] :cnext<CR>
 nnoremap <Leader>[ :cprev<CR>
 
 " Open git (vim-fugitive) in new tab
-nnoremap <Leader>gs :tab G<CR>
+nnoremap <Leader>g :tab G<CR>
 
 " Open fzf with git files/all files/buffers
 nnoremap <C-p> :GFiles<CR>
@@ -144,11 +119,11 @@ inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm()
     \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Toggle file explorer and select current file
-nnoremap <Leader>nt :NERDTreeToggle<CR>
-nnoremap <Leader>nf :NERDTreeFind<CR>
+nnoremap <C-n> :NvimTreeToggle<CR>
+nnoremap <Leader>n :NvimTreeFind<CR>
 
-" Compile and run dotnet core project
-nnoremap <Leader>9 :tabnew<CR>:term<CR>idotnet run<CR>
+" Hop
+nnoremap <Leader>h :HopWord<CR>
 
 " Use alt + hjkl to resize windows
 nnoremap <M-j> :resize -2<CR>
@@ -213,152 +188,20 @@ augroup omnisharp_commands
   autocmd BufWritePre *.cs :OmniSharpCodeFormat
 augroup END
 
-" =============================================================================
-" PLUGIN SPECIFIC
-" =============================================================================
-
-" Airline
-" -----------------------------------------------------------------------------
-
-let g:airline#extensions#tabline#enabled=1 " Show tabline
-let g:airline_powerline_fonts=1            " Enable powerline
-
 " fzf
-" -----------------------------------------------------------------------------
 
 let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } } " Make fzf window 95% of width and height
 let g:fzf_preview_window = ['right:50%:hidden', 'ctrl-/']          " Preview window hidden by default
 
-" NERDTree
-" -----------------------------------------------------------------------------
+" Colorscheme
+colorscheme edge
 
-let NERDTreeDirArrowExpandable="+"  " Icon for collapsed folder
-let NERDTreeDirArrowCollapsible="~" " Icon for expanded folder
-let NERDTreeNaturalSort=1           " Natural sorting, like 1, 2, ..., 11, 12, ..., 21, 22
-
-" Start NERDTree and put the cursor back in the other window.
-autocmd VimEnter * NERDTree | wincmd p
-
-" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-
-" Nord colorscheme
-" -----------------------------------------------------------------------------
-
-let g:nord_uniform_diff_background=1       " Transparent background when viewing diff
-let g:nord_cursor_line_number_background=1 " Add background color to active line number
-
-" let g:ariline_theme = 'sonokai'
-" let g:sonokai_style = 'maia'
-" let g:sonokai_enable_italic = 0
-" let g:sonokai_disable_italic_comment = 1
-
-colorscheme nord
-
-hi Normal guibg=NONE ctermbg=NONE
-
-" Prettier
-" -----------------------------------------------------------------------------
-
-" let g:prettier#autoformat_config_present = 1
-" let g:prettier#autoformat_require_pragma = 0
-" let g:prettier#config#config_precedence = 'prefer-file'
-
-" LSP config
-" -----------------------------------------------------------------------------
-
+" Lualine
 lua << EOF
--- require'lspconfig'.tsserver.setup {}
--- require'nvim-treesitter.configs'.setup {
---   highlight = {
---     enable = true
---   }
--- }
+require('lualine').setup()
+EOF
 
--- local nvim_lsp = require('lspconfig')
--- 
--- -- Use an on_attach function to only map the following keys
--- -- after the language server attaches to the current buffer
--- local on_attach = function(client, bufnr)
---   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
---   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
--- 
---   -- Enable completion triggered by <c-x><c-o>
---   -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
--- 
---   -- Mappings.
---   local opts = { noremap=true, silent=true }
--- 
---   -- See `:help vim.lsp.*` for documentation on any of the below functions
---   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
---   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
---   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
---   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
---   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
---   -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
---   -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
---   -- buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
---   buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
---   buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
---   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
---   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
---   -- buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
---   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
---   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
---   -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
---   -- buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
--- 
---   -- local function organize_imports()
---   --   local params = {
---   --     command = "_typescript.organizeImports",
---   --     arguments = { vim.api.nvim_buf_get_name(0) },
---   --     title = ""
---   --   }
---   --   vim.lsp.buf.execute_command(params)
---   -- end
--- 
---   buf_set_keymap('n', '<space>o', '<cmd>lua vim.lsp.buf.execute_command({ command = "_typescript.organizeImports", arguments = { vim.api.nvim_buf_get_name(0) }, title = "" })<CR>', opts)
--- end
--- 
--- -- Use a loop to conveniently call 'setup' on multiple servers and
--- -- map buffer local keybindings when the language server attaches
--- -- local servers = { "pyright", "rust_analyzer", "tsserver" }
--- -- for _, lsp in ipairs(servers) do
--- --   nvim_lsp[lsp].setup { on_attach = on_attach }
--- -- end
--- 
--- require'lspinstall'.setup() -- important
--- 
--- local servers = require'lspinstall'.installed_servers()
--- for _, server in pairs(servers) do
---   require'lspconfig'[server].setup{ on_attach = on_attach }
--- end
--- 
--- require'compe'.setup {
---   enabled = true;
---   autocomplete = true;
---   debug = false;
---   min_length = 1;
---   preselect = 'enable';
---   throttle_time = 80;
---   source_timeout = 200;
---   resolve_timeout = 800;
---   incomplete_delay = 400;
---   max_abbr_width = 100;
---   max_kind_width = 100;
---   max_menu_width = 100;
---   documentation = true;
--- 
---   source = {
---     path = true;
---     buffer = true;
---     calc = false;
---     nvim_lsp = true;
---     nvim_lua = true;
---     vsnip = false;
---     ultisnips = false;
---   };
--- }
-
+" Hop
+lua << EOF
+require('hop').setup()
 EOF
