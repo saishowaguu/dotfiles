@@ -131,7 +131,7 @@ map('n', '<leader>f', ':Telescope find_files<cr>', {})
 -- Statusline
 --
 
-require('lualine').setup()
+require('lualine').setup({ options = { theme = 'auto' } })
 
 --
 -- LSP
