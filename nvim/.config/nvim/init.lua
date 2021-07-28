@@ -28,7 +28,7 @@ opt.expandtab = true -- Use spaces instead of tabs
 opt.hlsearch = false -- Do not highlight all search results
 opt.ignorecase = true -- Case insensitive search
 opt.list = true -- Show white characters
-opt.listchars = { tab = ' ', trail = '~' } -- Configure white characters
+opt.listchars = { tab = ' ', trail = '~', space = '-' } -- Configure white characters
 opt.mouse = 'a' -- Add mouse support
 opt.number = true -- Show line numbers
 opt.relativenumber = true -- Show line numbers relative to current line
@@ -43,10 +43,10 @@ opt.termguicolors = true
 --
 
 require('packer').startup(function()
-  use 'sainnhe/edge'
+  use 'arcticicestudio/nord-vim'
 
-  use 'tpope/vim-fugitive'
   use 'airblade/vim-gitgutter'
+  use 'kdheepak/lazygit.nvim'
 
   use 'tpope/vim-surround'
 
@@ -88,7 +88,7 @@ end)
 -- Colorscheme
 --
 
-cmd [[colorscheme edge]]
+cmd [[colorscheme nord]]
 
 --
 -- Mappings
@@ -117,7 +117,7 @@ map('n', '<m-l>', ':vertical resize +2<cr>', {});
 -- Git
 --
 
-map('n', '<leader>g', ':tab G<cr>', {})
+map('n', '<leader>g', ':LazyGit<cr>', {})
 
 --
 -- Telescope
@@ -131,7 +131,7 @@ map('n', '<leader>f', ':Telescope find_files<cr>', {})
 -- Statusline
 --
 
-require('lualine').setup({ options = { theme = 'auto' } })
+require('lualine').setup({ options = { theme = 'nord' } })
 
 --
 -- LSP
@@ -175,7 +175,6 @@ require('compe').setup {
   source = {
     path = true;
     buffer = true;
-    calc = true;
     nvim_lsp = true;
     nvim_lua = true;
   };
