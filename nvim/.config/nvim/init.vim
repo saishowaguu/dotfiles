@@ -41,9 +41,9 @@ call plug#end()
 colorscheme onedark
 hi Normal guibg=NONE ctermbg=NONE
 
-lua require('lualine').setup({ options = { theme = 'onedark', section_separators = '', component_separators = '' }})
+lua require('lualine').setup({ options = { theme = 'onedark' }})
 
-lua require('nvim-treesitter.configs').setup { highlight = { enable = true } }
+lua require('nvim-treesitter.configs').setup({ highlight = { enable = true }})
 
 nnoremap <leader>g :tab G<cr>
 
