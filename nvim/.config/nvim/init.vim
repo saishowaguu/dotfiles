@@ -14,6 +14,8 @@ set relativenumber
 set shiftwidth=2
 set signcolumn=yes
 set smartcase
+set splitbelow
+set splitright
 set tabstop=2
 set termguicolors
 
@@ -25,10 +27,10 @@ call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'airblade/vim-gitgutter'
 Plug 'hoob3rt/lualine.nvim'
+Plug 'gruvbox-community/gruvbox'
 Plug 'jiangmiao/auto-pairs'
 Plug 'kyazdani42/nvim-tree.lua'
-Plug 'navarasu/onedark.nvim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -38,12 +40,27 @@ Plug 'tpope/vim-surround'
 
 call plug#end()
 
-colorscheme onedark
-hi Normal guibg=NONE ctermbg=NONE
+colorscheme gruvbox
 
-lua require('lualine').setup({ options = { theme = 'onedark' }})
+lua require('lualine').setup({ options = { theme = 'gruvbox' }})
 
 lua require('nvim-treesitter.configs').setup({ highlight = { enable = true }})
+
+lua <<EOF
+require('telescope').setup({
+  defaults = {
+    layout_strategy = 'vertical',
+    file_sorter = require('telescope.sorters').get_fzy_sorter
+  },
+  pickers = {
+    buffers = {
+      sort_lastused = true
+    }
+  }
+})
+EOF
+
+lua require('lspconfig').tsserver.setup({})
 
 nnoremap <leader>g :tab G<cr>
 
@@ -67,8 +84,9 @@ nnoremap <c-p> :Telescope git_files<cr>
 nnoremap <leader>e :Telescope buffers<cr>
 nnoremap <leader>f :Telescope find_files<cr>
 
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<c-g>u\<cr>\<c-r>=coc#on_enter()\<cr>"
-inoremap <silent><expr> <c-space> coc#refresh()
-
 nnoremap <leader>bd :bd<cr>
 nnoremap <leader>bD :%bd<cr>
+
+nnoremap <leader>m :e $MYVIMRC<cr>
+
+nnoremap <leader>t :split<cr>:resize 12<cr>:term<cr>
