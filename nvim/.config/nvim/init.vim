@@ -26,7 +26,8 @@ endif
 call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'airblade/vim-gitgutter'
-Plug 'hoob3rt/lualine.nvim'
+" Plug 'hoob3rt/lualine.nvim'
+Plug 'vim-airline/vim-airline'
 Plug 'gruvbox-community/gruvbox'
 Plug 'jiangmiao/auto-pairs'
 Plug 'kyazdani42/nvim-tree.lua'
@@ -42,7 +43,10 @@ call plug#end()
 
 colorscheme gruvbox
 
-lua require('lualine').setup({ options = { theme = 'gruvbox' }})
+let g:airline#extensions#tabline#enabled=1
+let g:airline_powerline_fonts=1
+
+" lua require('lualine').setup({ options = { theme = 'gruvbox' }})
 
 lua require('nvim-treesitter.configs').setup({ highlight = { enable = true }})
 
@@ -61,6 +65,7 @@ require('telescope').setup({
 EOF
 
 lua require('lspconfig').tsserver.setup({})
+lua require('lspconfig').clangd.setup({})
 
 nnoremap <leader>g :tab G<cr>
 
