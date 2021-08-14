@@ -151,7 +151,8 @@ nnoremap gD :lua vim.lsp.buf.declaration()<cr>
 nnoremap gd :lua vim.lsp.buf.definition()<cr>
 nnoremap K :lua vim.lsp.buf.hover()<cr>
 nnoremap gi :lua vim.lsp.buf.implementation()<cr>
-nnoremap <c-k> :lua vim.lsp.buf.signature_help()<cr>
+nnoremap <leader>k :lua vim.lsp.buf.signature_help()<cr>
 nnoremap <leader>rn :lua vim.lsp.buf.rename()<cr>
+nnoremap <leader>ca :lua vim.lsp.buf.code_action()<cr>
 
 autocmd BufWritePre *.js,*.json Neoformat
