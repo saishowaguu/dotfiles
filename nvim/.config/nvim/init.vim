@@ -51,10 +51,18 @@ let g:airline_powerline_fonts=0
 let g:fzf_preview_window = ['right:50%:hidden', 'ctrl-/']
 
 let g:nvim_tree_icons = {
+      \ 'git': {
+        \ 'ignored': '~',
+        \ 'unstaged': 'x',
+        \ 'untracked': '*'
+        \ },
       \ 'folder': {
         \ 'arrow_open': '-',
-        \ 'arrow_closed': '+'
-        \}
+        \ 'arrow_closed': '+',
+        \ 'default': '[ ]',
+        \ 'open': '[+]',
+        \ 'empty': '[x]'
+        \ }
       \ }
 
 let g:compe = {}
