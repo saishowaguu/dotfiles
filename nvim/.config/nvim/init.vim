@@ -155,4 +155,6 @@ nnoremap <leader>k :lua vim.lsp.buf.signature_help()<cr>
 nnoremap <leader>rn :lua vim.lsp.buf.rename()<cr>
 nnoremap <leader>ca :lua vim.lsp.buf.code_action()<cr>
 
+vnoremap <leader>d y'>p
+
 autocmd BufWritePre *.js,*.json Neoformat
