@@ -108,6 +108,7 @@ require('lspconfig').tsserver.setup({
 EOF
 
 lua require('lspconfig').clangd.setup({})
+lua require('lspconfig').cmake.setup({})
 
 nnoremap <leader>g :tab G<cr>
 
