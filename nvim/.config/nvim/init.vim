@@ -28,7 +28,7 @@ call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
-Plug 'gruvbox-community/gruvbox'
+Plug 'arcticicestudio/nord-vim'
 Plug 'hrsh7th/nvim-compe'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -43,7 +43,10 @@ Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
-colorscheme gruvbox
+let g:nord_cursor_line_number_background = 1
+let g:nord_uniform_diff_background = 1
+
+colorscheme nord
 
 let g:airline#extensions#tabline#enabled=1
 let g:airline_powerline_fonts=0
