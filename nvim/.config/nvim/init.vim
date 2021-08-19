@@ -49,7 +49,7 @@ let g:nord_uniform_diff_background = 1
 colorscheme nord
 
 let g:airline#extensions#tabline#enabled=1
-let g:airline_powerline_fonts=0
+let g:airline_powerline_fonts=1
 
 let g:fzf_preview_window = ['right:50%:hidden', 'ctrl-/']
 
