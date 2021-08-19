@@ -112,6 +112,7 @@ EOF
 
 lua require('lspconfig').clangd.setup({})
 lua require('lspconfig').cmake.setup({})
+lua require('lspconfig').jsonls.setup({})
 
 nnoremap <leader>g :tab G<cr>
 
