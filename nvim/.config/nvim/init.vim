@@ -32,6 +32,7 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'joshdick/onedark.vim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
@@ -42,10 +43,7 @@ Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
-let g:nord_cursor_line_number_background = 1
-let g:nord_uniform_diff_background = 1
-
-colorscheme nord
+colorscheme onedark
 
 let g:airline#extensions#tabline#enabled=1
 let g:airline_powerline_fonts=1
