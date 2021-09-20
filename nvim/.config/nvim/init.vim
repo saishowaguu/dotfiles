@@ -12,6 +12,7 @@ set mouse=a
 set nowrap
 set number
 set relativenumber
+set scrolloff=2
 set shiftwidth=2
 set signcolumn=yes
 set smartcase
