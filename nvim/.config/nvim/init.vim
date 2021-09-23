@@ -33,11 +33,13 @@ Plug 'easymotion/vim-easymotion'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/gv.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'sbdchd/neoformat'
+Plug 'stsewd/fzf-checkout.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
